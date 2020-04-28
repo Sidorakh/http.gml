@@ -30,9 +30,9 @@ Example usage, this adds two text fields and one file field into a formdata stru
 ```gml
 var _buff = buffer_load("test.txt");
 var _form_data = form_data({
-    name:"JOHN",
-    can_fly:true,
-	file:form_data_load_file("fcsmile.png")
+	name:"JOHN",
+	can_fly:true,
+		file:form_data_load_file("fcsmile.png")
 });
 ```
 
@@ -42,7 +42,7 @@ var _form_data = form_data({
 http("https://xkcd.com/info.0.json","GET",{},
 	function(status,http_status,content_length,size_downloaded,result){
 		var data = json_decode(result);
-        load_xkcd(result[? "num"]);
+		load_xkcd(result[? "num"]);
 	}
 );
 

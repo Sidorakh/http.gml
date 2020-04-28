@@ -20,7 +20,6 @@ if (keyboard_check_pressed(vk_enter)) {
 	});
 }
 if (keyboard_check_pressed(vk_control)) {
-	var _buff = buffer_load("fcsmile.png");
 	var _form_data = form_data({
 		name:"JOHN",
 		can_fly:true,
@@ -34,7 +33,7 @@ if (keyboard_check_pressed(vk_control)) {
 			body:_form_data
 		},
 		function(){
-			show_message("Did the thing")
+			show_message("Did the thing");
 		}
 	);
 }

@@ -107,6 +107,36 @@ function form_get_bound_safe_char() {
 	return global.bound_char_set[_index];
 }
 
+function form_data_load_file(file_path) {
+	var buff = buffer_load(file_path);
+	var file_ext = filename_ext(file_path);
+	var mime = "";
+	switch (string_lower(file_ext)) {
+		case ".png":
+			mime = "image/png";
+		break;
+		case ".jpg":
+		case ".jpe":
+		case ".jpeg":
+			mime = "image/jpeg";
+		break;
+		case ".gif":
+			mime = "image/gif";
+		break;
+		case ".txt":
+			mime = "text/plain";
+		break;
+	}
+	var options = {
+		keep_buffer:false,
+		filename: filename_name(file_path)
+	}
+	if (mime != "") {
+		options.mimetype = mime;
+	}
+	return [buff,options];
+}
+
 global.bound_char_set = [
 	"-","_",
 	"1","2","3","4","5","6","7","8","9","0",

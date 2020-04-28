@@ -24,13 +24,7 @@ if (keyboard_check_pressed(vk_control)) {
 	var _form_data = form_data({
 		name:"JOHN",
 		can_fly:true,
-		file:[
-			_buff,
-			{
-				filename:"fcsmile.png",
-				mimetype:"image/png"
-			}
-		]
+		file:form_data_load_file("fcsmile.png")
 	});
 	
 	http(

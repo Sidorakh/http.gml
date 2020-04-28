@@ -7,7 +7,6 @@
     {"id":{"name":"map","path":"scripts/map/map.yy",},"order":2,},
     {"id":{"name":"obj_tester","path":"objects/obj_tester/obj_tester.yy",},"order":1,},
     {"id":{"name":"obj_http","path":"objects/obj_http/obj_http.yy",},"order":0,},
-    {"id":{"name":"http_test","path":"scripts/http_test/http_test.yy",},"order":5,},
     {"id":{"name":"http","path":"scripts/http/http.yy",},"order":7,},
     {"id":{"name":"obj_xkcd","path":"objects/obj_xkcd/obj_xkcd.yy",},"order":3,},
     {"id":{"name":"obj_dialog","path":"objects/obj_dialog/obj_dialog.yy",},"order":2,},

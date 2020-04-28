@@ -7,7 +7,7 @@ An HTTP request library for GameMaker Studio 2.3, allowing the use of callbacks 
 |--|--|
 | `form_data_load_file(filename)` | Loads the file located at `filename` into a buffer, ready for insertion into formdata |
 | `form_data(...)` | Takes in a struct and returns an array, with valid formdata and a boundary. The structure is described below |
-| `http(url,options,callback)` | Fires off an HTTP request top the specified URL, and runs the passed in callback on completion. The options map and cb function are described below |
+| `http(url,method,body,callback)` | Fires off an HTTP request top the specified URL, and runs the passed in callback on completion. The options map and cb function are described below |
 
 
 ### form-data structure

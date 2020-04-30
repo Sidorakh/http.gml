@@ -11,7 +11,9 @@ An HTTP request library for GameMaker Studio 2.3, allowing the use of callbacks 
 
 
 ### form-data structure
+
 Each item in the struct is either a `real` or `string` value, or an `array` with the following structure:
+
 | Index | Description |
 |--|--|
 | 0 | File buffer |
@@ -19,6 +21,7 @@ Each item in the struct is either a `real` or `string` value, or an `array` with
 
 
 Structure for the Options map in form_data
+
 | Name | Description |
 |--|--|
 | filename | Name of the file being sent |

@@ -28,9 +28,25 @@ function http(url, _method, options, callback){
 		} else {
 			_request_id = http_request(url, _method, options.headers, options.body);
 		}
+		var _error = function(){};
+		var _progress = function(){};
+		if (typeof(callback)=="struct") {
+			var _m;
+			_m = variable_struct_get(callback,"error");
+			if (_m != undefined) {
+				_error = _m
+			}
+			_m = variable_struct_get(callback,"progress");
+			if (_m != undefined) {
+				_progress = _m;
+			}
+			callback = callback.complete;
+		}
 		var _req = map(
 			["url",url],
-			["callback",callback]
+			["callback",callback],
+			["error",_error],
+			["progress",_progress]
 		);
 		requests[? _request_id] = _req;
 	}
@@ -40,4 +56,14 @@ function http(url, _method, options, callback){
 	if (_is_form_data) {
 		buffer_delete(options.body);
 	}
+}
+
+
+function map() {
+	var _map = ds_map_create();
+	for (var i=0;i<argument_count;i++) {
+		var _a = argument[i];
+		_map[? _a[0]] = _a[1];
+	}
+	return _map;
 }

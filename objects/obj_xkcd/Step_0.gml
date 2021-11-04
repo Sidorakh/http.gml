@@ -6,10 +6,10 @@ if (in_menu == false) {
 		load_xkcd();
 	}
 	if (keyboard_check_pressed(ord("2"))) {
-			dialog(map(
-			["type",DIALOG_TYPES.GET_INTEGER],
-			["text","Comic number"]
-		), function(status,result) {
+			var map = ds_map_create();
+			map[? "type"] = DIALOG_TYPES.GET_INTEGER;
+			map[? "text"] = "Comic number";
+			dialog(map, function(status,result) {
 				load_xkcd(result);
 			}
 		);

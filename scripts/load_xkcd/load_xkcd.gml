@@ -26,12 +26,8 @@ function load_xkcd(){
 	//		ds_map_destroy(_data);
 	//	}
 	//);
-	http(
-		url,
-		"GET",
-		{},
-		function(status,http_status,__cl,__sd,body){
-			var _data = json_decode(body);
+	http(url,"GET","",{},function(status,result){
+			var _data = json_decode(result);
 			title = _data[? "title"];
 			comic = _data[? "num"];
 			alt = _data[? "alt"]

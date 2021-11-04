@@ -15,8 +15,8 @@ in_menu = false;
 
 randomize();
 
-http("https://xkcd.com/info.0.json","GET",{},function(status,http_status,__cl,__sd,body) {
-	var _data = json_decode(body);
+http("https://xkcd.com/info.0.json","GET","",{},function(status,result) {
+	var _data = json_decode(result);
 	max_comic = _data[? "num"];
 	ds_map_destroy(_data);
 });

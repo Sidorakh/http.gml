@@ -1,50 +1,31 @@
-/// @description Stubs for testing specific async events
 
 if (keyboard_check_pressed(vk_space)) {
-	dialog(map(
-		["type",DIALOG_TYPES.GET_STRING],
-		["text","Enter some text"]
-	), function(status,result) {
-		dialog(map(
-			["type",DIALOG_TYPES.SHOW_MESSAGE],
-			["text",result]
-		),undefined);
-	});
-}
-if (keyboard_check_pressed(vk_enter)) {
-	http("http://localhost:3000","GET",{},function(status,http_status,__cl,__sd,body) {
-		dialog(map(
-			["type",DIALOG_TYPES.SHOW_MESSAGE],
-			["text",body]
-		),undefined);
-	});
-}
-if (keyboard_check_pressed(vk_control)) {
-	var _form_data = form_data({
-		name:"JOHN",
-		can_fly:true,
-		file:form_data_load_file("fcsmile.png")
-	});
-	
-	http(
-		"http://localhost:3000",
-		"POST",
-		{
-			body:_form_data
-		},
-		function(){
-			show_message_async("Did the thing");
-		}
-	);
+	var code = get_string("HTTP Status","200");
+	http("https://enn3xyub5vujm.x.pipedream.net/"+code,"GET","",{},function(status,result){
+		show_message("\"" + string(status) + "\" - \"" + string(result) + "\"");
+	},function(status,result){
+		show_message("\"" + string(status) + "\" - \"" + string(result) + "\"");
+	});	
 }
 
-if (mouse_check_button_pressed(mb_left)) {
-	http(
-		"http://demo7682164.mockable.io/intellektim_sorular",
-		"GET",
-		{},
-		function(status,http_status,__cl,__sd,result){
-			show_message_async(json_encode(json_decode(result)));
-		}
-	);
+if (keyboard_check_pressed(vk_enter)) {
+	var body = get_string("Body",sha1_string_utf8(date_current_datetime()));
+	var form = new FormData();
+	form.add_data("testfield",body);
+	form.add_file("file","codes.json");
+	http("https://enn3xyub5vujm.x.pipedream.net/","POST",form,{},function(status,result){
+		show_message_async(result);
+	});	
+}
+// shows automatic stringifying of structs/arrays
+if (keyboard_check_pressed(vk_control)) {
+	var body = get_string("JSON string","");
+	try {
+		body = json_parse(body);
+		http("https://enn3xyub5vujm.x.pipedream.net/","POST",body,{},function(status,result){
+			show_message_async(result);
+		});
+	} catch(e) {
+		show_message(e);
+	}
 }

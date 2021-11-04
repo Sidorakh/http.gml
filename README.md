@@ -1,89 +1,103 @@
-# http.gml
-An HTTP request library for GameMaker Studio 2.3, allowing the use of callbacks and more!
 
-## Included functions
+# http.gml v2.0
+A complete rewrite of http.gml. It's much nicer now. 
 
-| Function | Description |
-|--|--|
-| `form_data_load_file(filename)` | Loads the file located at `filename` into a buffer, ready for insertion into formdata |
-| `form_data(...)` | Takes in a struct and returns an array, with valid formdata and a boundary. The structure is described below |
-| `http(url,method,options,callback)` | Fires off an HTTP request top the specified URL, and runs the passed in callback on completion. The options map and cb function are described below |
+## http(url, method, body, options, callback, [error], [progress])
+A wrapper for `http_request` (and `http_get_file`), returns the HTTP request ID. The callbacks passed in are called at appropriate times. 
+| Parameter | Type | Description |
+|--|--|--|
+| url | String | A valid URL |
+| method | String | A valid HTTP Request Method |
+| body | String/FormData | An HTTP request body, either a string or FormData |
+| options | Struct\<HTTPOptions\> | A struct setting various options in the request (further docs below) |
+| callback | function | A function to be called if the HTTP request succeeds |
+| error | function | (Optional) A function to be called if the HTTP request fails |
+| progress | function | (Optional) A function to be called when the HTTP request is still in progress |
+
+### options \<HTTPOptions\>
+| Property | Type | Description |
+|--|--|--|
+| headers | Real (ds_map) | A ds_map index of headers to be sent with the HTTP reequest. If not provided, a map is created |
+| keep_header_map | Boolean | Whether or not to keep the header map (useful if the headers are reused and don't need to change often) |
+| get_file | Boolean | Whether or not to use `http_get_file` instead of `http_request` (not recommended) |
+| filename | String | The file to output to when using `http_get_file` |
+| keep_form_data | Boolean | Whether or not to clean up/destroy the FormData object included in a HTTP request. Ignored if no FormData object is passed in as body |
+
+### callback(http_status, result)
+A function to be called when the HTTP request is successful
+| Parameter | Type | Description |
+|--|--|--|
+| http_status | Real | HTTP status code |
+| result | String | HTTP response body |
+
+### error(http_status, result)
+A function to be called when the HTTP request is unsuccessful
+| Parameter | Type | Description |
+|--|--|--|
+| http_status | Real | HTTP status code |
+| result | String | HTTP response body |
+
+### progress(content_length, size_downloaded)
+A function that is called when an HTTP request is still in progress (and has not completed or failed)
+| Parameter | Type | Description |
+|--|--|--|
+| content_length | Real | Total response size |
+| size_dwnloaded | String | Data downloaded |
+
+## FormData
+A struct that implements FormData as best I can to the spec set out in [rfc2045](https://datatracker.ietf.org/doc/html/rfc2045). 
+
+### add_file(name, file, options)
+Adds a file field to the FormData object
+| Parameter| Type | Description |
+|--|--|--|
+| name | String | Field name |
+| file | String | Path to file to load into FormData |
+| options | Struct\<FormDataOptions\> | Options related to file |
+
+### add_data(name, data)
+Adds a data field to the FormData object
+| Parameter | Type | Description |
+|--|--|--|
+| name | String | Field name |
+| data | String | Field Data |
+
+### form_body
+Returns the `multipart/form-data` encoded body and the boundary, ready for use in the `HTTP` function
+Returns: [Buffer, String]
+
+### cleanup
+Cleans up any buffers created and stored in the FormData object that were not flagged with `keep_buffer`, except the results of the `form_body` function
+
+### options\<FormDataOptions\>
+| Property | Type | Description |
+|--|--|--|
+| file_is_buffer | Boolean | Whether or not the File passed in to `add_file` is a Buffer instead of a file/path |
+| keep_buffer | Boolean | When using `file_is_buffer`, this controls whether or not the buffer is kept after the FormData object runs its `cleanup()` function |
+| filename | String | Filename to use for the uploaded file (in the form field). If blank, will use the filename in the `file` argument, or the string `"unknown"` if a buffer was specified |
+| mimetype | String | The mimetype to mark the file as. This is sniffed from the filename if there's a [filetype registered with the IANA](https://www.iana.org/assignments/media-types/media-types.xhtml) in the `get_mime_from_extension()` function |
 
 
-### http options structure
+## Example Usage
+### Basic GET request
+```js
+// Using the amazing yes/no API - https://yesno.wtf
+http("https://yesno.wtf/api","GET","",{},function(status,result){
+	result = json_parse(result);
+	show_message(result.answer);
+})
+```
+### Uploading a file (multipart/form-data)
 
-Entries in the Options struct are as follows:
-
-| Name | Description |
-|--|--|
-| headers | A ds map containing any http request headers necessary |
-| body | Body of the HTTP request, either a String, FormData, or Buffer |
-| keep_header_map | Set to `true` if you don't want the header map passed in to be destroyed. If no header map is present, this option ahs no effect |
-
-
-### form-data structure
-
-Each item in the struct is either a `real` or `string` value, or an `array` with the following structure:
-
-| Index | Description |
-|--|--|
-| 0 | File buffer |
-| 1 | File options struct
-
-
-Entries in the form-data Options struct are as follows:
-
-| Name | Description |
-|--|--|
-| filename | Name of the file being sent, if not provided, defaults to the field name |
-| mimetype | Type of data being sent. Possible values listed [here](https://tools.ietf.org/html/rfc2045) |
-| encoding | Encoding of the file (currently ignored, defaults to binary) |
-| keep_buffer | Defaults to `false`. If set to `true`, the buffer is *not* deleted, otherwise, it is |
-
-
-
-Example usage, this adds two text fields and one file field into a formdata structure:
-```gml
-var _form_data = form_data({
-	name:"JOHN",
-	can_fly:true,
-	file:form_data_load_file("fcsmile.png")
+```js
+var form = new FormData();
+form.add_file("file","codes.json");
+form.add_data("foo","bar");
+var headers = ds_map_create();
+headers[? "X-App-Id"] = "ABC123"
+http("https://enn3xyub5vujm.x.pipedream.net/", "POST", form, {headers:headers}, function(http_status,result){
+	show_message(result);
+},function(http_status,result){
+	show_message("Error - " + result);
 });
 ```
-
-## Usage
-
-```gml
-// a GET request
-http("https://xkcd.com/info.0.json","GET",{},
-	function(status,http_status,content_length,size_downloaded,result){
-		var data = json_decode(result);
-		load_xkcd(result[? "num"]);
-	}
-);
-```
-
-```gml
-// a POST request
-var _form_data = form_data({
-	name:"JOHN",
-	can_fly:true,
-	file:form_data_load_file("fcsmile.png")
-});
-http("https://form-data-target.com/upload","POST",{
-		body:_form_data
-	},function(status,http_status,content_length,size_downloaded,result){
-		if (status == 0) {
-			show_message("Uploaded data successfully");
-		}
-	}
-});
-```
-
-
----
-## Notes
-
-Also includes a very basic wrapper for dialog boxes to make my life easier. This system is far less polished, but still usable. 
-
-Includes two objects, `obj_tester` and `obj_xkcd`. The former is a small set of functions to test it

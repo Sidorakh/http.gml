@@ -33,7 +33,18 @@ if (keyboard_check_pressed(vk_control)) {
 			body:_form_data
 		},
 		function(){
-			show_message("Did the thing");
+			show_message_async("Did the thing");
+		}
+	);
+}
+
+if (mouse_check_button_pressed(mb_left)) {
+	http(
+		"http://demo7682164.mockable.io/intellektim_sorular",
+		"GET",
+		{},
+		function(status,http_status,__cl,__sd,result){
+			show_message_async(json_encode(json_decode(result)));
 		}
 	);
 }

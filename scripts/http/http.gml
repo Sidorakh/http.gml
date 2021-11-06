@@ -65,6 +65,10 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 	
 	// cleanup if needed
 	
+	if (options.keep_header_map == false) {
+		ds_map_destroy(options.headers);	
+	}
+	
 	if (options.formdata != undefined) {
 		buffer_delete(body);
 		if (options.keep_formdata == false) {

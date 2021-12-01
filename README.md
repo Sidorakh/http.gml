@@ -4,7 +4,7 @@
 A complete rewrite of http.gml. It's much nicer now. 
 
 ## http(url, method, body, options, callback, [error], [progress])
-A wrapper for `http_request` (and `http_get_file`), returns the HTTP request ID. The callbacks passed in are called at appropriate times. 
+A wrapper for `http_request`, returns the HTTP request ID. The callbacks passed in are called at appropriate times. 
 | Parameter | Type | Description |
 |--|--|--|
 | url | String | A valid URL |

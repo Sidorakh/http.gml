@@ -5,6 +5,8 @@ global.HTTP_DEFAULT_OPTIONS = {
 	filename: "out",
 	formdata: undefined,
 	keep_formdata: false,
+	buffer: undefined,
+	keep_buffer: false,
 }
 global.HTTP_DEFAULT_VARIABLE_LIST = variable_struct_get_names(global.HTTP_DEFAULT_OPTIONS);
 
@@ -48,11 +50,15 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 		options.headers[? "Content-Type"] = "application/json";
 	}
 	if (options.get_file) {
-		var request = http_get_file(url,options.filename);
+		var buffer = buffer_create(0,buffer_grow,1);
+		var request = http_request(url,_method,options.headers,buffer);
+		options.buffer = buffer;
 		obj_http.requests[? request] = {
 		    callback: cb,
 			error: cb_error,
 			progress: cb_progress,
+			options: options,
+			buffer: buffer,
 		}
 		return request;
 	}
@@ -61,6 +67,7 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 		callback: cb,
 		error: cb_error,
 		progress: cb_progress,
+		options: options,
 	}
 	
 	// cleanup if needed

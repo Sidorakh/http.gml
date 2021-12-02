@@ -18,7 +18,9 @@ if (status < 0) {
 		}
 		error(async_load[? "http_status"],result,requests[? req].options);	
 		if (requests[? req].options.keep_buffer == false) {
-			buffer_delete(requests[? req].options.buffer);
+			if (buffer_exists(requests[? req].options.buffer)) {
+				buffer_delete(requests[? req].options.buffer);
+			}
 		}
 		requests[? req] = undefined;
 	}
@@ -36,7 +38,9 @@ if (status == 0) {
 		}
 		callback(async_load[? "http_status"],result,requests[? req].options);	
 		if (requests[? req].options.keep_buffer == false) {
-			buffer_delete(requests[? req].options.buffer);
+			if (buffer_exists(requests[? req].options.buffer)) {
+				buffer_delete(requests[? req].options.buffer);
+			}
 		}
 		requests[? req] = undefined;
 	}

@@ -48,7 +48,7 @@ if (status == 0) {
 if (status == 1) {
 	// Progress
 	var progress = requests[? req].progress;
-	if (progress == undefined) {
+	if (progress != undefined) {
 		progress(async_load[? "contentLength"],async_load[? "sizeDownloaded"],requests[? req].options);
 	}
 }

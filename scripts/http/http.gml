@@ -12,12 +12,14 @@ global.HTTP_DEFAULT_VARIABLE_LIST = variable_struct_get_names(global.HTTP_DEFAUL
 
 
 /// @function http
-/// @param url {string} request URL
-/// @param _method {string} request method (GET/POST/PUT/PATCH/DELETE/etc.)
-/// @param body {string|buffer|FormData} Body for the HTTP request
-/// @param options {struct} Struct containing one or more 
-/// @param cb {function} 
-
+/// @param {string} url request URL
+/// @param {string} _method request method (GET/POST/PUT/PATCH/DELETE/etc.)
+/// @param {string | buffer | struct.FormData} body Body for the HTTP request
+/// @param {struct} options Struct containing one or more options that can modify the request
+/// @param {function} cb
+/// @param {function} cb_error
+/// @param {function} cb_progress
+/// feather ignore once GM1062
 function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_progress=undefined){
 	for (var i=0;i<array_length(global.HTTP_DEFAULT_VARIABLE_LIST);i++) {
 		var key = global.HTTP_DEFAULT_VARIABLE_LIST[i];
@@ -42,7 +44,7 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 		
 		body = form;
 		options.headers[? "Content-Type"] = "multipart/form-data; boundary=" + boundary;
-		/// feather ignore GM1041
+		/// feather ignore once GM1041
 		options.headers[? "Content-Length"] = string(buffer_get_size(body));
 		
 		

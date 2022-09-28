@@ -22,6 +22,10 @@ function form_get_bound_safe_char() {
 function FormData() constructor {
 	boundary = "----" + sha1_string_utf8(date_datetime_string(date_current_datetime()));
 	fields = [];
+	/// @description Add a binary file to the FormData instance
+	/// @param {string} name Field name in FormData body
+	/// @param {string} file Filename or buffer, if buffer, specify filename in options
+	/// @param {struct} options Various options for this field, including cusotm filename and mimetype
 	function add_file(name,file,options={}) {
 		var buffer;
 		for (var i=0;i<array_length(global.ADD_FILE_OPTIONS_KEYS);i++) {
@@ -72,6 +76,9 @@ function FormData() constructor {
 			}
 		}
 	}
+	/// @description Add a text field to the FormData instance
+	/// @param {string} field Field name
+	/// @param {string} value field value
 	function add_data(field,value) {
 		array_push(fields,{
 			type:"text",
@@ -126,7 +133,8 @@ function FormData() constructor {
 }
 
 
-
+/// @description Reuturns a mimetype from a given extension
+/// @param {string} extension
 function get_mime_from_extension(extension) {
 	switch (string_lower(extension)) {
 		case ".evy":

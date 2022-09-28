@@ -44,7 +44,7 @@ function FormData() constructor {
 			options.filename = filename_name(file);
 		}
 		if (!is_string(options.mimetype) && is_string(file) && options.file_is_buffer != true) {
-			options.mimetype = get_mime_from_extension(filename_ext(options.filename));;
+			options.mimetype = get_mime_from_extension(filename_ext(options.filename));
 		}
 		
 		array_push(fields,{

@@ -4,5 +4,5 @@
 if (instance_number(object_index) > 1) {
 	instance_destroy();	 // THERE CAN ONLY BE ONE
 }
-
+active = false;
 requests = ds_map_create();

@@ -22,7 +22,7 @@ if (status < 0) {
 				buffer_delete(requests[? req].options.buffer);
 			}
 		}
-		requests[? req] = undefined;
+		ds_map_delete(requests,req);
 	}
 }
 if (status == 0) {
@@ -42,7 +42,7 @@ if (status == 0) {
 				buffer_delete(requests[? req].options.buffer);
 			}
 		}
-		requests[? req] = undefined;
+		ds_map_delete(requests,req);
 	}
 }
 if (status == 1) {
@@ -51,4 +51,8 @@ if (status == 1) {
 	if (progress != undefined) {
 		progress(async_load[? "contentLength"],async_load[? "sizeDownloaded"],requests[? req].options);
 	}
+}
+
+if (ds_map_size(requests) == 0) {
+	active = false;	
 }

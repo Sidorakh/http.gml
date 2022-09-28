@@ -42,6 +42,7 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 		
 		body = form;
 		options.headers[? "Content-Type"] = "multipart/form-data; boundary=" + boundary;
+		/// feather ignore GM1041
 		options.headers[? "Content-Length"] = string(buffer_get_size(body));
 		
 		
@@ -69,6 +70,7 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 		progress: cb_progress,
 		options: options,
 	}
+	obj_http.active = true;
 	
 	// cleanup if needed
 	

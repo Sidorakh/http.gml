@@ -4,9 +4,9 @@ if (requests[? req] == undefined) return;
 
 var status = async_load[? "status"];
 var options = requests[? req].options;
+options.status = status;
 if (status < 0) {
 	// Error
-	
 	var error = requests[? req].error;
 	if (error != undefined) {
 		var result = async_load[? "result"];

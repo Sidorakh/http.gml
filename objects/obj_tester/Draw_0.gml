@@ -8,6 +8,7 @@ _str += "2. Send GET request\n";
 _str += "3. Send POST/form-data request\n";
 _str += "4. Send POST request (JSON string)\n";
 _str += "5. Download photo of a cat (get_file: true)\n";
+_str += "6. GET Request to custom URL\n";
 
 draw_text(4,4,_str);
 

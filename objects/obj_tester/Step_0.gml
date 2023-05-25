@@ -51,3 +51,13 @@ if (keyboard_check_pressed(ord("5"))) {
 		prog_str = string(sd) + " / " + string(cl);
 	});
 }
+
+
+if (keyboard_check_pressed(ord("6"))) {
+	var url = get_string("Custom URL","https://fake.redshirt.dev");
+	http(url,"GET","",{},function(status,result,options){
+		show_message("\"" + string(opions.status) + "\" - \"" + string(result) + "\"");
+	},function(status,result,options){
+		show_message("\"" + string(options.status) + "\" - \"" + string(result) + "\"");
+	});	
+}

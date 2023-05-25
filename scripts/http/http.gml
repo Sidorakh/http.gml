@@ -1,3 +1,4 @@
+/// feather disable all
 global.HTTP_DEFAULT_OPTIONS = {
 	headers: undefined,
 	keep_header_map: false,
@@ -91,3 +92,4 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 	return request;
 	
 }
+/// feather enable all

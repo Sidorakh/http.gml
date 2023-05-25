@@ -1,3 +1,5 @@
+/// feather disable all
+
 #macro NEWLINE (chr(13)+chr(10))
 global.ADD_FILE_OPTIONS_DEFAULT = {
 	file_is_buffer: false,
@@ -717,3 +719,4 @@ function get_mime_from_extension(extension) {
 	}
 }
 
+/// feather enable all

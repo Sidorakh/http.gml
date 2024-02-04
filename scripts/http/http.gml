@@ -22,6 +22,10 @@ global.HTTP_DEFAULT_VARIABLE_LIST = variable_struct_get_names(global.HTTP_DEFAUL
 /// @param {function} cb_progress
 /// feather ignore once GM1062
 function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_progress=undefined){
+	if (!is_string(url)) {
+		throw "url must be a string"
+	}
+	
 	for (var i=0;i<array_length(global.HTTP_DEFAULT_VARIABLE_LIST);i++) {
 		var key = global.HTTP_DEFAULT_VARIABLE_LIST[i];
 		if (options[$ key] == undefined) {
@@ -93,3 +97,38 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 	
 }
 /// feather enable all
+function HttpBodyParser() constructor {
+	static parsers = {};
+	static parser_list = [];
+	/// @function HttpBodyParser.add
+	/// @param content_type {string} Content Type to operate on (ex: application/json, text/xml). This is case insensitive, and forced to lower case for consistency
+	/// @param parser {Function} Parser function to call for this content-type
+	static add = function(content_type,parser) {
+		content_type = string_lower(content_type);
+		self.parsers[$ content_type] = parser;
+		array_push(self.parser_list,content_type);
+	}
+	static parse = function(headers,body) {
+		var type = string_lower(headers[? "Content-Type"]);
+		for (var i=0;i<array_length(self.parser_list);i++) {
+			if (string_pos(parser_list[i],type) > 0 || string_pos(type,parser_list[i]) > 0) {
+				return parsers[$ parser_list[i]](headers,body);
+			}
+		}
+	}
+}
+new HttpBodyParser();
+/// @description Example parser that handles JSON
+/// @param headers {Id.DsMap} HTTP Response headers for the request (or -1 if not available)
+/// @param http_body {String} The HTTP Response body as a string
+/// @return result {Struct | Array} 
+function http_json_parse(headers,http_body) {
+	try {
+		var result = json_parse(http_body);
+		return result;
+	} catch(e) {
+		throw (e);
+	}
+}
+
+HttpBodyParser.add("application/json",http_json_parse);

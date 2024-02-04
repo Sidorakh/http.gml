@@ -1,0 +1,3 @@
+- [**Download the latest release**](https://github.com/Sidorakh/http.gml/releases)
+- [**Report an issue**](https://github.com/Sidorakh/http.gml/issues)
+- [**Support me**](https://paypal.me/sidorakh)

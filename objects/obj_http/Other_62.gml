@@ -16,7 +16,7 @@ if (status < 0) {
 		if (async_load[? "response_headers"]) {
 			options.response_headers = async_load[? "response_headers"];
 		}
-		error(async_load[? "http_status"],result,requests[? req].options);	
+		error(status,requests[? req].options);	
 		if (requests[? req].options.keep_buffer == false) {
 			if (buffer_exists(requests[? req].options.buffer)) {
 				buffer_delete(requests[? req].options.buffer);
@@ -57,6 +57,9 @@ if (status == 0) {
 if (status == 1) {
 	// Progress
 	var progress = requests[? req].progress;
+	if (async_load[? "response_headers"]) {
+		options.response_headers = async_load[? "response_headers"];
+	}
 	if (progress != undefined) {
 		progress(async_load[? "contentLength"],async_load[? "sizeDownloaded"],requests[? req].options);
 	}

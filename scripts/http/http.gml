@@ -1,6 +1,7 @@
 /// feather disable all
 global.HTTP_DEFAULT_OPTIONS = {
 	headers: undefined,
+	response_headers: undefined,
 	keep_header_map: false,
 	get_file: false,
 	formdata: undefined,

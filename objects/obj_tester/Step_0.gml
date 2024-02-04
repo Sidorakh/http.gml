@@ -46,7 +46,7 @@ if (keyboard_check_pressed(ord("5"))) {
 	http("https://i.imgur.com/R42xZ1p.jpg","GET","",options,function(status,result,options){
 		in_progress = false;
 		buffer_save(options.buffer,"out.jpg");
-		show_message("Find this file @ %localappdata%/out.jpg");
+		show_message($"Find this file @ /{game_save_id}out.jpg");
 		show_message(string(result) + " | " + string(options.buffer));
 	},function(status,result,options) {
 		in_progress = false;
@@ -55,12 +55,21 @@ if (keyboard_check_pressed(ord("5"))) {
 	});
 }
 
-
 if (keyboard_check_pressed(ord("6"))) {
+	/// feather ignore once GM1017
+	var type = get_string("Data type (csv, json, xml)","json");
+	http($"https://http-test-service.sidorakh.workers.dev/data/{type}","GET","",{},function(status,result,options){
+		show_message("\"" + string(options.status) + "\" - \"" + string(result) + "\"");
+	},function(status,result,options){
+		show_message("\"" + string(options.status) + "\" - \"" + string(result) + "\"");
+	});	
+}
+
+if (keyboard_check_pressed(ord("7"))) {
 	/// feather ignore once GM1017
 	var url = get_string("Custom URL","https://fake.redshirt.dev");
 	http(url,"GET","",{},function(status,result,options){
-		show_message("\"" + string(opions.status) + "\" - \"" + string(result) + "\"");
+		show_message("\"" + string(options.status) + "\" - \"" + string(result) + "\"");
 	},function(status,result,options){
 		show_message("\"" + string(options.status) + "\" - \"" + string(result) + "\"");
 	});	

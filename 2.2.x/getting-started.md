@@ -27,15 +27,15 @@ http("https://icanahzip.com","GET","",{ headers, keep_header_map: false }, funct
     show_message("Your IP address is " + result);
 });
 ```
-Maybe you want your player to sign into your own backend, obviously with a username and password
+Maybe you want your player to sign into your own backend with a username and password:
 ```js
 var headers = ds_map_create();
-headers[? "ulser-Agent"] = "GameMaker Client";
+headers[? "User-Agent"] = "GameMaker Client";
 http("https://yourbackend.com/users/login","POST",{username: "admin", password: "password123"},{ headers, keep_header_map: false}, function(status, result) {
     show_message("Server response: " + string(status) + " - " + json_stringify(result));
 })
 ```
-These are only some basic examples of what this libnrary can do
+These are only some basic examples of what this library can do
 
 ## Updating HTTP.gml
 ---

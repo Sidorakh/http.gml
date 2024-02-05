@@ -13,7 +13,6 @@
 <body>
   <div id="app"></div>
   <script>
-    const base_path = (!(location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "")) ? './http.gml' : '';
     window.$docsify = {
       name: '<a id="home-link" class="app-name-link" data-nosearch href="/"><span id="home-text" title="' +
                     config.description + '">' + config.name +
@@ -46,7 +45,6 @@
         tabComments: false,
         tabHeadings: true,
       },
-      basePath: base_path,
       loadSidebar: true,
       subMaxLevel: 3,
       sidebarDisplayLevel: 0,

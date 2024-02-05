@@ -19,7 +19,7 @@ Instead of using `http_request` or a similar `http_` function, use the `http` fu
 
 For example, to fetch the users public IP address with http.gml
 
-```js
+```gml
 // With http.gml
 var headers = ds_map_create();
 headers[? "User-Agent"] = "GameMaker Client";
@@ -28,7 +28,7 @@ http("https://icanahzip.com","GET","",{ headers, keep_header_map: false }, funct
 });
 ```
 Maybe you want your player to sign into your own backend with a username and password:
-```js
+```gml
 var headers = ds_map_create();
 headers[? "User-Agent"] = "GameMaker Client";
 http("https://yourbackend.com/users/login","POST",{username: "admin", password: "password123"},{ headers, keep_header_map: false}, function(status, result) {
@@ -42,3 +42,4 @@ These are only some basic examples of what this library can do
 1. If you modified HTTP_DEFAULT_OPTIONS, back this up
 2. Delete the `http.gml` folder in the IDE
 3. Follow the steps in [Installing](#installing) with the new version
+

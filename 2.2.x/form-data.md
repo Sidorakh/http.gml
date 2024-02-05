@@ -10,18 +10,18 @@ Returns: Struct.FormData
 
 Adds a file to the FormData struct
 
-Returns: Nothing
-
 | Name | Type | Required | Description |
 | - | - | - | - | 
 | name | String | Yes | Field name in the FormData struct |
 | file | String | Yes | Path to a file (either relative or absolute) |
 | options | Struct.AddFileOptions | No | Various options and flags to be used when adding the file |
+
+Returns: Nothing
+
 ## FormData.add_buffer(name,buffer,[fname],[options])
 
 Adds a buffer to the FormData struct
 
-Returns: Nothing
 
 | Name | Type | Required | Description | 
 | - | - | - | - |
@@ -29,6 +29,8 @@ Returns: Nothing
 | buffer | Id.Buffer | Yes | Buffer containing data to be loaded into the FormData struct |
 | fname | Atring | No | Filename for the binary data. Defaults to the field name if not supplied |
 | options | Struct.AddFileOptions | No | Various options and flags to be used when adding the file |
+
+Returns: Nothing
 
 ## FormData.add_data(name,value)
 

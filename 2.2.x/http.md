@@ -1,11 +1,11 @@
 # http()
 ---
+
 ## `http(url, method, body, options, callback, [error], [progress])`
 
 Creates and sends an HTTP request to the specified URL with the specified options, and calls any relevant callback functions passed.
 NOTE: When a [Struct.FormData](form-data.md?id=formdata-1) struct is passed in as the `body` parameter, any `Content-Type` headers present are ignored and overwritten with the boudnary calculated in the `FormData` struct.
 
-Returns: Async Request ID (Real)
 
 | Name | Type | Required | Description |
 | - | - | - | - |
@@ -16,6 +16,9 @@ Returns: Async Request ID (Real)
 | callback | [Function\<SuccessCallback>](http.md?id=functionltsuccesscallbackgt) | Yes | A function to be run on completion of the HTTP request |
 | error | [Function\<ErrorCallback>](http.md?id=functionlterrorcallbackgt) | No | A function to be run if the HTTP request fails
 | progress | [Function\<ProgressCallback>](http.md?id=functionltprogresscallbackgt) | No | A function to be run when the HTTP request has not completed but when progress changes | 
+
+Returns: Async Request ID (Real)
+
 
 
 ## Struct.HttpOptions
@@ -35,9 +38,10 @@ A struct passed to the `http()` function that sets various options for that HTTP
 | status | Real | No | Set on the HttpOptions struct when sent into an HTTP async event, is the status field from `async_load` |
 
 
+
 ## Function\<SuccessCallback>
 
-A function called on success of an HTTP request that takes the following parameters
+A user-defined function called on success of an HTTP request that takes the following parameters
 
 Note: HTTP statuses are not verified, so a request that returns a 404 or 500 error will still count as successful. Check the status code 
 
@@ -47,9 +51,13 @@ Note: HTTP statuses are not verified, so a request that returns a 404 or 500 err
 | result | String OR Id.Buffer | Response returned by the server |
 | options | [Struct.HttpOptions](http.md?id=structhttpoptions) | The options struct associated with this request, including response headers if they were received |
 
+Returns: Nothing
+
+
+
 ## Function\<ErrorCallback>
 
-A function called on failure of an HTTP request that takes the following parameters
+A user-defined function called on failure of an HTTP request that takes the following parameters
 
 Note: HTTP statuses are not verified, so a request that returns a 404 or 500 error will still count as successful
 
@@ -57,13 +65,18 @@ Note: HTTP statuses are not verified, so a request that returns a 404 or 500 err
 | - | - | - |
 | options | [Struct.HttpOptions](http.md?id=structhttpoptions) | The options struct associated with this request |
 
+Returns: Nothing
+
 
 ## Function\<ProgressCallback> 
 
-A function called while an HTTP request is in progress, that takes the following parameters
+A user-defined function called while an HTTP request is in progress, that takes the following parameters
+
 
 | Name | Type | Description |
 | - | - | - |
 | content_length | Real | Size of the content, in bytes |
 | size_downloaded | Real | Size of content downloaded, in bytes |
 | options | [Struct.HttpOptions](http.md?id=structhttpoptions) |  The options struct associated with this request, including response headers if they were received |
+
+Returns: Nothing

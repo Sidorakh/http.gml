@@ -3,6 +3,13 @@
 # http.gml v2.0
 A complete rewrite of http.gml. It's much nicer now. 
 
+# Documentation is now located at [docs.sidorakh.net/http.gml](https://docs.sidorakh.net/http.gml)
+Trust me, it's better that way
+
+The old documentation is below for posterity
+
+----
+
 ## http(url, method, body, options, callback, [error], [progress])
 A wrapper for `http_request`, returns the HTTP request ID. The callbacks passed in are called at appropriate times. 
 | Parameter | Type | Description |

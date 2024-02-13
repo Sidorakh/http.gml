@@ -10,8 +10,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "http.gml",
+    "path": "folders/Extensions/http.gml.yy",
   },
   "parentObjectId": null,
   "persistent": true,

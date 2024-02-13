@@ -2,7 +2,6 @@
 
 #macro NEWLINE (chr(13)+chr(10))
 global.ADD_FILE_OPTIONS_DEFAULT = {
-	file_is_buffer: false,
 	keep_buffer: false,
 	filename: "",
 	mimetype: "",
@@ -24,34 +23,35 @@ function form_get_bound_safe_char() {
 function FormData() constructor {
 	boundary = "----" + sha1_string_utf8(date_datetime_string(date_current_datetime()));
 	fields = [];
-	/// @description Add a binary file to the FormData instance
+	/// @description Loads a binary file off storage and adds it to the FormData instance
 	/// @param {string} name Field name in FormData body
-	/// @param {string} file Filename or buffer, if buffer, specify filename in options
+	/// @param {string} file Filename
 	/// @param {struct} options Various options for this field, including cusotm filename and mimetype
 	function add_file(name,file,options={}) {
-		var buffer;
+		var buffer = buffer_load(file);
+		options.keep_buffer = false;
+		self.add_buffer(name,buffer,fname,options);
+	}
+	/// @description Add a buffer to the FormData instance
+	/// @param {string} name Field name in FormData body
+	/// @param {Id.Buffer} buffer Buffer to add
+	/// @param {Id.Buffer} fname Filename of the buffer, defaults to the field name
+	/// @param {struct} options Various options for this field, including cusotm filename and mimetype
+	function add_buffer(name,buffer,fname=name,options={}) {
 		for (var i=0;i<array_length(global.ADD_FILE_OPTIONS_KEYS);i++) {
 			var key = global.ADD_FILE_OPTIONS_KEYS[i];
 			if (options[$ key] == undefined) {
 				options[$ key] = global.ADD_FILE_OPTIONS_DEFAULT[$ key];
 			}
 		}
-		var fname = file;
-		if (options.file_is_buffer == true) {
-			buffer = file;
-			fname = "unknown";
-			if (options.filename != undefined && options.filename != "") {
-				fname = options.filename;
-			}
-		} else {
-			buffer = buffer_load(file);
-		}
 		if (!is_string(options.filename)) {
-			options.filename = filename_name(file);
+			options.filename = fname;
 		}
-		if (!is_string(options.mimetype) && is_string(file) && options.file_is_buffer != true) {
+		// attempt to pull a mimetype if none provided
+		if (options.mimetype != "") {
 			options.mimetype = get_mime_from_extension(filename_ext(options.filename));
 		}
+		
 		
 		array_push(fields,{
 			type: "file",

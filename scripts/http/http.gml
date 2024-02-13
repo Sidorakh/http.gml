@@ -1,9 +1,9 @@
 /// feather disable all
 global.HTTP_DEFAULT_OPTIONS = {
 	headers: undefined,
+	response_headers: undefined,
 	keep_header_map: false,
 	get_file: false,
-	filename: "out",
 	formdata: undefined,
 	keep_formdata: false,
 	buffer: undefined,
@@ -110,8 +110,11 @@ function HttpBodyParser() constructor {
 	/// @param parser {Function} Parser function to call for this content-type
 	static add = function(content_type,parser) {
 		content_type = string_lower(content_type);
-		self.parsers[$ content_type] = parser;
-		array_push(self.parser_list,content_type);
+		parsers[$ content_type] = parser;
+		array_push(parser_list,content_type);
+	}
+	static has = function(content_type) {
+		return struct_exists(parsers,content_type);
 	}
 	static parse = function(headers,body) {
 		var type = string_lower(headers[? "Content-Type"]);
@@ -135,5 +138,5 @@ function http_json_parse(headers,http_body) {
 		throw (e);
 	}
 }
-
 HttpBodyParser.add("application/json",http_json_parse);
+

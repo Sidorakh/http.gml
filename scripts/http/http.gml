@@ -97,6 +97,11 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 	
 }
 /// feather enable all
+
+function http_get_default_config() {
+	
+}
+
 function HttpBodyParser() constructor {
 	static parsers = {};
 	static parser_list = [];

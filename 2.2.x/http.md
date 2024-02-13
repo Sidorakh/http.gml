@@ -23,20 +23,20 @@ Returns: Async Request ID (Real)
 
 ## Struct.HttpOptions
 
-A struct passed to the `http()` function that sets various options for that HTTP request
+A struct passed to the `http()` function and passed into each callback that contains various options for that HTTP request
 
-| Name | Type | Required | Description |
-| - | - | - | - |
-| headers | Id.DSMap | No | DS Map containing headers for this request. Can be left as `undefined` if no custom headers are required (default: `undefined`) |
-| response_headers | Id.DSMap | No | A DS Map containing headers for the HTTP response if received. (default: `undefined`) |
-| keep_header_map | Boolean | No | Whether or not to keep the header map passed into the HTTP request (default: `false`) |
-| formdata | Struct.FormData | No| An internal variable, used to keep track of the `formdata` struct and buffers (default: `undefined`) |
-| keep_formdata | Boolean | No | Whether or not the `cleanup` function of the FormData struct should be run, deleting any buffers added to the FormData struct (default: `false`) |
-| get_file | Boolean | No | Whether or not to pipe the HTTP Response into a buffer, and return that instead (default: `false`) |
-| buffer | Id.Buffer | No | An internal variable, used to keep track of a buffer used to download a file (default: `undefined`) |
-| keep_buffer | Boolean | No | Whether or not to delete the `buffer` after the HTTP request resolves (either successfully or in an error) (default: `false`) |
-| status | Real | No | Set on the HttpOptions struct when sent into an HTTP async event, is the status field from `async_load` |
-
+| Name | Type | Description |
+| - | - | - |
+| headers | Id.DSMap | DS Map containing headers for this request. Can be left unset if no custom headers are required (default: `undefined`) |
+| response_headers | Id.DSMap | A DS Map containing headers for the HTTP response if received. (default: `undefined`) |
+| keep_header_map | Boolean | Whether or not to keep the header map passed into the HTTP request (default: `false`) |
+| formdata | Struct.FormData | An internal variable, used to keep track of the `formdata` struct and buffers (default: `undefined`) |
+| keep_formdata | Boolean | Whether or not the `cleanup` function of the FormData struct should be run, deleting any buffers added to the FormData struct (default: `false`) |
+| get_file | Boolean | Whether or not to pipe the HTTP Response into a buffer, and return that instead (default: `false`) |
+| buffer | Id.Buffer | An internal variable, used to keep track of a buffer used to download a file (default: `undefined`) |
+| keep_buffer | Boolean | Whether or not to delete the `buffer` after the HTTP request resolves (either successfully or in an error) (default: `false`) |
+| status | Real | Set on the HttpOptions struct when sent into an HTTP async event, is the status field from `async_load` |
+| raw_body | String OR Id.Buffer | The raw body of the HTTP request, before any automatic parsing (default: `""`) |
 
 
 ## Function\<SuccessCallback>

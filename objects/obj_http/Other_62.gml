@@ -39,7 +39,8 @@ if (status == 0) {
 			//show_message(type);
 			if (HttpBodyParser.has(type)) {
 				try { 
-					result = HttpBodyParser.parse(async_load[? "response_headers"],result);
+					options.raw_body = result;
+					result = HttpBodyParser.parse(async_load[? "response_headers"],result,options);
 				} catch(e) {
 					// failed to parse content(?)
 				}

@@ -8,6 +8,7 @@ global.HTTP_DEFAULT_OPTIONS = {
 	keep_formdata: false,
 	buffer: undefined,
 	keep_buffer: false,
+	raw_body: "",
 }
 global.HTTP_DEFAULT_VARIABLE_LIST = variable_struct_get_names(global.HTTP_DEFAULT_OPTIONS);
 
@@ -101,31 +102,42 @@ function HttpBodyParser() constructor {
 	static parsers = {};
 	static parser_list = [];
 	/// @function HttpBodyParser.add
-	/// @param content_type {string} Content Type to operate on (ex: application/json, text/xml). This is case insensitive, and forced to lower case for consistency
-	/// @param parser {Function} Parser function to call for this content-type
+	/// @param {string} content_type Content Type to operate on (ex: application/json, text/xml). This is case insensitive, and forced to lower case for consistency
+	/// @param {Function} parser Parser function to call for this content-type
 	static add = function(content_type,parser) {
 		content_type = string_lower(content_type);
 		parsers[$ content_type] = parser;
 		array_push(parser_list,content_type);
 	}
+	/// @function HttpBodyParser.has
+	/// @param {string} content_type The content-type to check for
+	/// @returns {Bool}
 	static has = function(content_type) {
 		return struct_exists(parsers,content_type);
 	}
-	static parse = function(headers,body) {
+	/// @function HttpbodyParser.parse
+	/// @param {Id.DsMap} headers DS Map containing response headers
+	/// @param {String | Id.Buffer} body The HTTP response body, as a string or buffer
+	/// @param {struct} options The options struct
+	/// @returns {any}
+	static parse = function(headers,body,options) {	
 		var type = string_lower(headers[? "Content-Type"]);
 		for (var i=0;i<array_length(self.parser_list);i++) {
 			if (string_pos(parser_list[i],type) > 0 || string_pos(type,parser_list[i]) > 0) {
-				return parsers[$ parser_list[i]](headers,body);
+				return parsers[$ parser_list[i]](headers,body,options);
 			}
 		}
 	}
 }
 new HttpBodyParser();
+
+// Register a JSON parser
 /// @description Example parser that handles JSON
-/// @param headers {Id.DsMap} HTTP Response headers for the request (or -1 if not available)
-/// @param http_body {String} The HTTP Response body as a string
-/// @return result {Struct | Array} 
-function http_json_parse(headers,http_body) {
+/// @param {Id.DsMap} headers HTTP Response headers for the request (or -1 if not available)
+/// @param {String} http_body The HTTP Response body as a string
+/// @param {Struct} options The options struct associated with this request
+/// @return {Any}  result
+function http_json_parse(headers,http_body, options) {
 	try {
 		var result = json_parse(http_body);
 		return result;
@@ -133,5 +145,6 @@ function http_json_parse(headers,http_body) {
 		throw (e);
 	}
 }
+// and register the JSON parser
 HttpBodyParser.add("application/json",http_json_parse);
 

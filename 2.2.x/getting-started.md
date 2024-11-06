@@ -23,7 +23,7 @@ For example, to fetch the users public IP address with http.gml
 // With http.gml
 var headers = ds_map_create();
 headers[? "User-Agent"] = "GameMaker Client";
-http("https://icanahzip.com","GET","",{ headers, keep_header_map: false }, function(status, result) {
+http("https://icanhazip.com","GET","",{ headers, keep_header_map: false }, function(status, result) {
     show_message("Your IP address is " + result);
 });
 ```

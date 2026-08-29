@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "load_xkcd",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Example",
-    "path": "folders/Extensions/http.gml/Example.yy",
+  "$GMScript":"v1",
+  "%Name":"load_xkcd",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"load_xkcd",
+  "parent":{
+    "name":"Example",
+    "path":"folders/Extensions/http.gml/Example.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

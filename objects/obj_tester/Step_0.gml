@@ -57,11 +57,11 @@ if (keyboard_check_pressed(ord("5"))) {
 
 if (keyboard_check_pressed(ord("6"))) {
 	/// feather ignore once GM1017
-	var type = get_string("Data type (csv, json, xml)","json");
-	http($"https://http-test-service.sidorakh.workers.dev/data/{type}","GET","",{},function(status,result,options){
-		show_message("\"" + string(options.status) + "\" - \"" + string(result) + "\"");
+	var type = get_string("Data type (csv, json)","json");
+	http($"http://localhost:8787/data/{type}","GET","",{},function(status,result,options){
+		show_message(result);
 	},function(status,result,options){
-		show_message("\"" + string(options.status) + "\" - \"" + string(result) + "\"");
+		show_message(result);
 	});	
 }
 

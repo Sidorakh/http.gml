@@ -35,16 +35,15 @@ if (status == 0) {
 		}
 		if (async_load[? "response_headers"]) {
 			options.response_headers = async_load[? "response_headers"];
-			var type = async_load[? "response_headers"][? "Content-Type"];
-			//show_message(type);
-			if (HttpBodyParser.has(type)) {
-				try { 
-					options.raw_body = result;
-					result = HttpBodyParser.parse(async_load[? "response_headers"],result,options);
-				} catch(e) {
-					// failed to parse content(?)
-				}
-			}
+            var keys = ds_map_keys_to_array(options.response_headers);
+            for (var i=0;i<array_length(keys);i++) {
+                var key = keys[i];
+                options.response_headers[? string_lower(key)] = options.response_headers[? key];
+            }
+            options.raw_body = result;
+            if (options.get_file != true) {
+                result = HttpBodyParser.parse(options.response_headers,result,options);
+            }
 		}
 		callback(async_load[? "http_status"],result,requests[? req].options);
 		if (requests[? req].options.keep_buffer == false) {

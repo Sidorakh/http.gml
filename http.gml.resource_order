@@ -1,6 +1,7 @@
 {
-  "FolderOrderSettings": [
+  "FolderOrderSettings":[
     {"name":"Extensions","order":1,"path":"folders/Extensions.yy",},
+    {"name":"Example","order":3,"path":"folders/Extensions/http.gml/Example.yy",},
     {"name":"Fonts","order":2,"path":"folders/Fonts.yy",},
     {"name":"Notes","order":3,"path":"folders/Notes.yy",},
     {"name":"Objects","order":4,"path":"folders/Objects.yy",},
@@ -13,14 +14,14 @@
     {"name":"Sprites","order":10,"path":"folders/Sprites.yy",},
     {"name":"Tile Sets","order":11,"path":"folders/Tile Sets.yy",},
     {"name":"Timelines","order":12,"path":"folders/Timelines.yy",},
-    {"name":"Example","order":3,"path":"folders/Extensions/http.gml/Example.yy",},
   ],
-  "ResourceOrderSettings": [
-    {"name":"dialog","order":3,"path":"scripts/dialog/dialog.yy",},
-    {"name":"load_xkcd","order":4,"path":"scripts/load_xkcd/load_xkcd.yy",},
-    {"name":"form_data","order":2,"path":"scripts/form_data/form_data.yy",},
-    {"name":"obj_tester","order":1,"path":"objects/obj_tester/obj_tester.yy",},
-    {"name":"http","order":1,"path":"scripts/http/http.yy",},
+  "ResourceOrderSettings":[
+    {"name":"http.gml documentation","order":4,"path":"notes/http.gml documentation/http.gml documentation.yy",},
     {"name":"obj_dialog","order":2,"path":"objects/obj_dialog/obj_dialog.yy",},
+    {"name":"obj_tester","order":1,"path":"objects/obj_tester/obj_tester.yy",},
+    {"name":"dialog","order":3,"path":"scripts/dialog/dialog.yy",},
+    {"name":"form_data","order":2,"path":"scripts/form_data/form_data.yy",},
+    {"name":"http","order":1,"path":"scripts/http/http.yy",},
+    {"name":"load_xkcd","order":4,"path":"scripts/load_xkcd/load_xkcd.yy",},
   ],
 }

@@ -21,7 +21,7 @@ global.HTTP_DEFAULT_VARIABLE_LIST = variable_struct_get_names(global.HTTP_DEFAUL
 /// @param {function} cb
 /// @param {function} cb_error
 /// @param {function} cb_progress
-/// feather ignore once GM1062
+
 function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_progress=undefined){
 	if (!is_string(url)) {
 		throw "url must be a string"
@@ -99,10 +99,9 @@ function http(url,_method,body,options={},cb=undefined,cb_error=undefined,cb_pro
 }
 /// feather enable all
 
-function http_get_default_config() {
-	
-}
-
+/// feather ignore once GM1022
+/// feather ignore once GM1100
+/// feather ignore once GM1025
 function HttpBodyParser() constructor {
 	static parsers = {};
 	static parser_list = [];
@@ -114,11 +113,21 @@ function HttpBodyParser() constructor {
 		parsers[$ content_type] = parser;
 		array_push(parser_list,content_type);
 	}
+    static get_parser = function(content_type) {
+        var type = string_lower(content_type);
+        for (var i=0;i<array_length(self.parser_list);i++) {
+            if (string_pos(parser_list[i],type) > 0 || string_pos(type,parser_list[i]) > 0) {
+                return parsers[$ parser_list[i]];
+            }
+        }
+        return undefined;
+    }
+    
 	/// @function HttpBodyParser.has
 	/// @param {string} content_type The content-type to check for
 	/// @returns {Bool}
 	static has = function(content_type) {
-		return struct_exists(parsers,content_type);
+		return self.get_parser(content_type) != undefined;
 	}
 	/// @function HttpbodyParser.parse
 	/// @param {Id.DsMap} headers DS Map containing response headers
@@ -126,12 +135,12 @@ function HttpBodyParser() constructor {
 	/// @param {struct} options The options struct
 	/// @returns {any}
 	static parse = function(headers,body,options) {	
-		var type = string_lower(headers[? "Content-Type"]);
-		for (var i=0;i<array_length(self.parser_list);i++) {
-			if (string_pos(parser_list[i],type) > 0 || string_pos(type,parser_list[i]) > 0) {
-				return parsers[$ parser_list[i]](headers,body,options);
-			}
-		}
+		var content_type = string_lower(headers[? "content-type"]);
+		var parser = self.get_parser(content_type);
+        if (parser != undefined) {
+            return parser(headers,body,options);
+        }
+        return body;
 	}
 }
 new HttpBodyParser();
@@ -153,3 +162,5 @@ function http_json_parse(headers,http_body, options) {
 // and register the JSON parser
 HttpBodyParser.add("application/json",http_json_parse);
 
+//// feather ignore all
+#export http, HttpBodyParser

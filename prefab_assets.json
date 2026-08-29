@@ -1,0 +1,21 @@
+{
+  "Version": "1.0",
+  "assets": [
+    {
+      "export": 1,
+      "name": "form_data"
+    },
+    {
+      "export": 1,
+      "name": "http"
+    },
+    {
+      "export": 1,
+      "name": "http.gml documentation"
+    },
+    {
+      "export": 1,
+      "name": "obj_http"
+    }
+  ]
+}

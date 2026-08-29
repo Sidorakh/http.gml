@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "form_data",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "http.gml",
-    "path": "folders/Extensions/http.gml.yy",
+  "$GMScript":"v1",
+  "%Name":"form_data",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"form_data",
+  "parent":{
+    "name":"http.gml",
+    "path":"folders/Extensions/http.gml.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

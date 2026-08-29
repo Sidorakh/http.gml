@@ -4,7 +4,7 @@
   "name":"http.gml documentation",
   "parent":{
     "name":"http.gml",
-    "path":"folders/Extensions/http.gml.yy",
+    "path":"folders/http.gml.yy",
   },
   "resourceType":"GMNotes",
   "resourceVersion":"2.0",

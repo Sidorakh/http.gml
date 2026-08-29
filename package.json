@@ -1,9 +1,9 @@
 {
   "name": "@sidorakh/http.gml",
-  "version": "2.2.2",
+  "version": "2.2.5",
   "description": "An HTTP request manager that also manages creating form-data requests, and automatic response parsing",
   "files": [
-    "dev.redshirt.http.gml-2.2.2.yymps"
+    "dev.redshirt.http.gml-2.2.5.yymps"
   ],
   "keywords": [
     "http"

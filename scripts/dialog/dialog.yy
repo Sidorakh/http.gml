@@ -6,7 +6,7 @@
   "name":"dialog",
   "parent":{
     "name":"Example",
-    "path":"folders/Extensions/http.gml/Example.yy",
+    "path":"folders/http.gml/Example.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

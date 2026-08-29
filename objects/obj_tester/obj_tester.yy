@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Example",
-    "path":"folders/Extensions/http.gml/Example.yy",
+    "path":"folders/http.gml/Example.yy",
   },
   "parentObjectId":null,
   "persistent":false,

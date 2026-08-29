@@ -6,7 +6,7 @@
   "name":"http",
   "parent":{
     "name":"http.gml",
-    "path":"folders/Extensions/http.gml.yy",
+    "path":"folders/http.gml.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
